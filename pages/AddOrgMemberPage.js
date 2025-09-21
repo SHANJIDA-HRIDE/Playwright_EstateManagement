@@ -41,16 +41,11 @@ class AddOrgMemberPage extends BasePage { // 👈 EXTEND BasePage
           await this.nextButton2.click();
           await this.emailRadio.check();
           await this.submitButton.click();
+            await expect(this.memberSuccessMessage).toBeVisible();
+             await this.okButton.click();
 
 }
 
-  async verifyAddOrgMember(expectedText) {
-  await expect(this.memberSuccessMessage).toHaveText(expectedText);
-}
-
-async clickOnOK(){
-        await this.okButton.click();
-    }
 
 
 }

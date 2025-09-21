@@ -1,3 +1,4 @@
+// global-setup.js
 const { chromium } = require('@playwright/test');
 const { LoginPage } = require('./pages/LoginPage');
 const config = require('./utils/config');
@@ -10,9 +11,9 @@ module.exports = async () => {
   const loginPage = new LoginPage(page);
   await loginPage.openLoginPage();
   await loginPage.login(config.loginData.validEmail, config.loginData.validPassword);
-  await page.waitForLoadState('networkidle'); // Wait for full login
+  await page.waitForLoadState('networkidle'); // wait for login
 
-  // Save storage state (cookies, localStorage, etc.)
+  // Save session (cookies, localStorage, etc.)
   await context.storageState({ path: 'auth.json' });
 
   await browser.close();

@@ -20,8 +20,18 @@ function generateRandomBDPhoneNumber() {
 function generateUniqueRoleName() {
   const allRoles = ['Manager', 'Developer', 'Tester', 'Support', 'HR', 'Designer'];
   const randomRole = allRoles[Math.floor(Math.random() * allRoles.length)];
-  const timestamp = Date.now(); // ensures uniqueness
+  const timestamp = Date.now();
   return `${randomRole.toLowerCase()}_${timestamp}`;
+}
+
+function generateUniqueTowerName() {
+  const allTowers = [
+    'Rose', 'Shanghai Tower', 'Willis Tower', 'Eiffel Tower', 'Burj Khalifa',
+    'Empire State', 'One World Trade', 'Taipei 101', 'Petronas Towers', 'Lotte World Tower'
+  ];
+  const randomTower = allTowers[Math.floor(Math.random() * allTowers.length)];
+  const timestamp = Date.now();
+  return `${randomTower.toLowerCase()}_${timestamp}`;
 }
 
 function generateRandomRoleDescription() {
@@ -35,6 +45,11 @@ function generateRandomRoleDescription() {
     'Maintains system infrastructure'
   ];
   return descriptions[Math.floor(Math.random() * descriptions.length)];
+}
+
+// Helper function to generate random number in a range
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max) + 1; // 1 to max
 }
 
 const config = {
@@ -51,10 +66,28 @@ const config = {
     roleDescription: generateRandomRoleDescription(),
   }),
 
-   RoleData: () => ({
+  RoleData: () => ({
     roleName: generateUniqueRoleName(),
     roleDescription: generateRandomRoleDescription(),
   }),
+
+  TowerData: () => {
+    const initial = {
+      towerName: generateUniqueTowerName(),
+      description: 'A new tower in the estate',
+      numFloors: getRandomInt(10), // max 10 floors
+      numUnits: getRandomInt(6),   // max 6 units
+    };
+
+    const updated = {
+      towerName: `updated_${generateUniqueTowerName()}`,
+      description: 'This tower was updated in automation test',
+      numFloors: getRandomInt(15), // allow bigger range for update
+      numUnits: getRandomInt(10),  // allow more units for update
+    };
+
+    return { initial, updated };
+  },
 };
 
 module.exports = config;

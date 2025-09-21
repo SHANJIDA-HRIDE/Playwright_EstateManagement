@@ -1,10 +1,11 @@
-import { defineConfig } from '@playwright/test';
+// playwright.config.js
+const { defineConfig } = require('@playwright/test');
 
-export default defineConfig({
-  globalSetup: './global-setup.js', // 👈 Add this line
+module.exports = defineConfig({
+  globalSetup: require.resolve('./global-setup.js'),
 
   use: {
-    storageState: 'auth.json',     // 👈 Use the saved login session
+    storageState: 'auth.json',   // saved login session
     browserName: 'chromium',
     headless: false,
     screenshot: 'on',
