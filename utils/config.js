@@ -88,6 +88,14 @@ const config = {
 
     return { initial, updated };
   },
+  commMemberData: () => ({
+    fullName: generateRandomName(),
+    email: generateRandomEmail(),
+    contact: generateRandomBDPhoneNumber(),
+  }),
+
+
+
 };
 
 module.exports = config;
