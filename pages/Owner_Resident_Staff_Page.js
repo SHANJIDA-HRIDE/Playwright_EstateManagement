@@ -37,10 +37,28 @@ class Owner_Resident_Staff_Page extends BasePage {
 
     // Remove Resident locators
     this.firstHeaderCheckbox = page.locator('thead tr:first-child th input[type="checkbox"]');
-
     this.removeButton = page.getByRole('button', { name: 'Remove' });
     this.residentDeletedMessage = page.locator('p:has-text("1 Residents deleted successfully.")');
 
+    // Unit Staff locators
+    this.unitStaffBtn = page.getByRole('button', { name: 'Unit Staff' });
+    this.addUnitStaffBtn = page.getByRole('button', { name: 'Add Unit Staff' });
+    this.unitStaffAddedSuccessMsg = page.locator('p:text("Unit staff added successfully!")');
+    this.selectAllCheckbox = page.locator('thead input[type="checkbox"]').first();
+    this.staffRemovedSuccessMsg = page.locator('p:text("Staff removed successfully")');
+
+
+    // Unit General Info
+    this.editSpan = page.locator('span:has-text("Edit")');
+    this.areaInput = page.locator('input[name="area"]');
+    this.numberOfRoomsInput = page.locator('input[name="number_of_rooms"]');
+    this.numberOfBathroomsInput = page.locator('input[name="number_of_bathrooms"]');
+    this.numberOfBalconiesInput = page.locator('input[name="number_of_balconies"]');
+    this.primaryContactButton = page.getByRole('button', { name: 'Primary Contact' });
+    this.addButton = page.getByRole('button', { name: 'Add' });
+    this.primaryRelationshipInput = page.locator('input[name="primary_relationship"]');
+    this.saveButton = page.getByRole('button', { name: 'Save' });
+    this.unitUpdateSuccessMessage = page.locator('p:has-text("Unit Update successful")');
   }
 
   /** pick a single random unit id and return its locator */
@@ -113,10 +131,46 @@ class Owner_Resident_Staff_Page extends BasePage {
     await this.firstHeaderCheckbox.check();
     await this.removeButton.click();
     await expect(this.residentDeletedMessage).toBeVisible();
+    await this.okButton.click();      
+}
+
+     async addNewStaff_removeStaff(fullName, email, contact) {
+    // --- pick a random link ---
+    const unitDetailsLink = await this.getAvailableLink();
+    await unitDetailsLink.click();  
+    await this.unitStaffBtn.click();
+    await this.addUnitStaffBtn.click();
+    await this.fullNameInput.waitFor({ state: 'visible' });
+    await this.fullNameInput.fill(fullName);
+    await this.generalEmailInput.fill(email);
+    await this.generalContactInput.fill(contact);
+    await this.nextButton.click();
+    await this.nextButton.click();
+    //await this.loginEmailRadio.check();
+    await this.submitButton.click();
+    await expect(this.unitStaffAddedSuccessMsg).toBeVisible();
     await this.okButton.click();
+    await this.selectAllCheckbox.check();
+    await this.removeButton.click();
+    await expect(this.staffRemovedSuccessMsg).toBeVisible();
+    await this.okButton.click();   
+}
 
-
-        
+     async addUnitGeneralInfo(area, numberOfRooms, numberOfBathrooms, numberOfBalconies, primaryRelationship) {
+    // --- pick a random link ---
+    const unitDetailsLink = await this.getAvailableLink();
+    await unitDetailsLink.click();  
+    await this.editSpan.click(); 
+    await this.areaInput.fill(area.toString());
+    await this.numberOfRoomsInput.fill(numberOfRooms.toString());
+    await this.numberOfBathroomsInput.fill(numberOfBathrooms.toString());
+    await this.numberOfBalconiesInput.fill(numberOfBalconies.toString());
+    await this.primaryContactButton.click();
+    await this.addButton.click();
+    await this.primaryRelationshipInput.fill(primaryRelationship);
+    await this.saveButton.click();
+    await expect(this.unitUpdateSuccessMessage).toBeVisible();
+    await this.okButton.click();
 }
 
 

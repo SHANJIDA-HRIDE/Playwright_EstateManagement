@@ -53,7 +53,7 @@ test('Add New 1 Owner 100% Ownership', async () => {
       member.contact
       
   );
-});*/
+});
 
 
 test('Add New 1 Resident & Remove the Added Resident', async () => {
@@ -63,11 +63,30 @@ test('Add New 1 Resident & Remove the Added Resident', async () => {
       member.fullName,
       member.email,
       member.contact
-    )
-
-      
+    )   
 });
 
 
+test('Add New 1 Staff & Remove the Added Staff', async () => {
+    const member = config.commMemberData();
+    await towerListPage.openTowerListPage();
+    await owner_Resident_Staff_Page.addNewStaff_removeStaff(
+      member.fullName,
+      member.email,
+      member.contact
+    )   
+});
+
+test('Add Unit General Info ', async () => {
+    const unitInfo = config.UnitGeneralInfoData();
+    await towerListPage.openTowerListPage();
+    await owner_Resident_Staff_Page.addUnitGeneralInfo(
+      unitInfo.area,
+      unitInfo.numberOfRooms,
+      unitInfo.numberOfBathrooms,
+      unitInfo.numberOfBalconies,
+      unitInfo.primaryRelationship
+    )
+});*/
 
 });

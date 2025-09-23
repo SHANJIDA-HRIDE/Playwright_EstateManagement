@@ -94,7 +94,13 @@ const config = {
     contact: generateRandomBDPhoneNumber(),
   }),
 
-
+ UnitGeneralInfoData: () => ({
+  area: Math.floor(Math.random() * 1701) + 300, // 300 - 2000 sq.ft
+  numberOfRooms: Math.floor(Math.random() * 5) + 1, // 1-5 rooms
+  numberOfBathrooms: Math.floor(Math.random() * 3) + 1, // 1-3 bathrooms
+  numberOfBalconies: Math.floor(Math.random() * 3), // 0-2 balconies
+  primaryRelationship: ['Owner', 'Tenant', 'Family', 'Relative', 'Friend'][Math.floor(Math.random() * 5)]
+  }),
 
 };
 
